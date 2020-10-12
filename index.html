@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+   <link rel="icon" href="img/covidfav.png">
+    <script type="text/javascript" src="js/jquerymin.js"></script>
+    <!-- <script type="text/javascript" src="js/style.js"></script> -->
+    <script src="js/Chart.min.js"></script>
+    <!-- <script src="js/numscroller.js"></script> -->
+    
+    <title>Covid-19 Tracker App</title>
+</head>
+<body>
+    <!-- <p id="res"></p> -->
+    <section class="covid19parent">
+        <div class="container">
+            <div class="covid19logo">
+                <img src="img/covid19 pic.png">
+            </div>
+            <div class="CovidGlobal">
+                <div class="CovidGl">
+                <div class="CovidGlTitle">
+                    <h2>World</h2>
+                </div>
+            </div>
+                <marquee class="CovidGlinner CovidGlMarquee">
+                    <span id="GlobalConfirm">
+                    </span>
+                    <span id="GlobalRecover"></span>
+                    <span id ="GlobalDeaths"></span>
+                </marquee>
+            </div>
+        </div>
+    
+    <section class="resultbox clearfix">
+            <div class="container">
+                <div class="resultboxinnerparent">
+            <div class="Confirmbox">
+               <h5>Confirmed</h5>
+                <h2 id="Confirm" data-prop="number" class="count"></h2>
+                <h2 id = "ConfirmGlbl"></h2>
+                <h4>No of Active Case of Covid19</h4>
+            </div>
+            <div class="Recoverybox">
+                <h5>Recovered</h5>
+                <h2 id="Recover" ></h2> 
+                <h4>No of Deaths Case of Covid19</h4>
+            </div>
+            <div class="Deathbox">
+                <h5>Deaths</h5>
+                <h2 id="Deaths" ></h2>   
+                <h4>No of Recoveries Case of Covid19</h4> 
+            </div>
+        </div>
+        </section> 
+        <section class="selectboxparent clearfix">
+            <div class="container">
+        <select id="res">
+            <option id="ft" value="Global">Global</option>              
+         </select>
+         <!-- <button onclick="shyam()">Click</button> -->
+        <p id="fl"></p>
+    </div>
+    </section>
+    <section class="chart">
+        <div class="container">
+            <div class="Chartinner">
+                <canvas id="myChart" width="200" height="200"></canvas>
+            </div>
+        </div>
+    </section>
+</section>
+<footer class="footerz">
+    <h4>Design & Developed By Shyam </h4>
+</footer>
+    <script>
+    
+    //Chart
+    function BuildChart( labels , values ,  chartTitle) {
+  var ctx = document.getElementById("myChart").getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels, // Our labels
+      datasets: [{
+        label: chartTitle, // Name the series
+        data: values, // Our values
+        
+        backgroundColor: [ // Specify custom colors
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [ // Add custom color borders
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1 // Specify bar border width
+      }]
+    },
+    options: {
+      responsive: true, // Instruct chart js to respond nicely.
+      maintainAspectRatio: true, // Add to prevent default behavior of full-width/height 
+      legend: {
+            display: false,
+    },
+    }
+    
+  });
+  return myChart;
+}
+ 
+ 
+            //  https://covid19.mathdro.id/api/confirmed     https://api.covid19api.com/summary
+          async function getCoviddata(){
+              const resp = await fetch('https://api.covid19api.com/summary');
+              const jsonData = await resp.json();
+              return jsonData;
+          }
+             getCoviddata().then(data1=>{
+                 console.log(data1);
+                 var GL = document.getElementById("ft").value;
+            var Globalinner = document.getElementById("ft").value;
+            console.log(GL);
+
+            
+            //
+            document.getElementById("GlobalConfirm").innerHTML ='Total Confirmed : ' +"" + data1.Global.TotalConfirmed  + " +" + data1.Global.NewConfirmed + ' New Today';
+            document.getElementById("GlobalRecover").innerHTML = 'Total Recovered : ' + "" + data1.Global.TotalRecovered  +  " +" + data1.Global.NewRecovered + ' New Today';
+            document.getElementById("GlobalDeaths").innerHTML = 'Total Deaths : '+ "" + data1.Global.TotalDeaths  +  " +" + data1.Global.NewDeaths + ' New Today';
+             
+
+
+                   for( i in data1.Countries){
+                var Countrylist =  data1.Countries[i].Country;
+                console.log(Countrylist);
+                var Createoption = document.createElement("option");
+                Createoption.setAttribute("value" , Countrylist);
+                Createoption.innerText = Countrylist;
+                var idz = document.getElementById("res");
+                idz.append(Createoption);
+            
+            }
+            
+            document.getElementById("res").onchange = function(){myfn()};
+            function myfn(){
+                var Selectbox = document.getElementById("res").selectedIndex;
+            var Optionz = (document.getElementsByTagName("option")[Selectbox].value);
+          
+            
+            var result1 = data1.Countries.filter(x=> x.Country === Optionz);
+            console.log(result1); 
+            var tn = result1;
+           
+            var TotalConfirmedcase = result1[0].TotalConfirmed;
+            var TotalRecoverycase = result1[0].TotalRecovered;
+            var TotalDeathcase = result1[0].TotalDeaths;
+            var TotalDeathcase = result1[0].TotalDeaths;
+            document.getElementById("Confirm").innerHTML = result1[0].TotalConfirmed;
+            document.getElementById("Recover").innerHTML = result1[0].TotalRecovered;
+            document.getElementById("Deaths").innerHTML = result1[0].TotalDeaths;
+            
+            
+            //Chart Data
+            var values = [];
+           values.push(TotalConfirmedcase);
+           values .push(TotalRecoverycase);
+           values.push(TotalDeathcase);
+        //    console.log(values);
+
+           var labels = ['TotalConfirmed' , 'TotalRecovered' , 'TotalDeaths']
+
+          BuildChart(labels , values, "People")
+        
+          
+            }
+            
+            
+            
+            })
+             
+      
+    </script>
+   
+</body>
+</html>
