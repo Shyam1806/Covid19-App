@@ -330,3 +330,151 @@ h6{
     font-size: 20px;
     text-align: center;
 }
+
+
+//responsive
+
+
+
+@media screen and (max-width: 1920px) and (min-width: 1610px){
+  
+}
+
+@media screen and (max-width: 1600px) and (min-width: 1450px){
+	
+}
+
+@media screen and (max-width: 1440px) and (min-width: 1366px){
+	
+}
+
+@media screen and (max-width: 1366px) and (min-width: 1280px){
+	
+}
+@media screen and (max-width: 1280px) and (min-width: 1024px){
+  
+} 
+
+@media screen and (max-width: 1024px) and (min-width: 300px){
+    .CovidGl {
+        width: 22%;
+        z-index:999;
+    }   
+
+}
+
+@media screen and (max-width: 980px) and (min-width: 300px){
+	
+}
+
+@media screen and (max-width: 940px) and (min-width: 300px){
+	.CovidGlTitle {
+        left:67px;
+    }
+
+
+}
+
+@media screen and (max-width: 800px) and (min-width: 300px){
+	.Confirmbox>h4, .Deathbox>h4, .Recoverybox>h4{
+        font-size:19px;
+    }
+    .Confirmbox>h5, .Deathbox>h5, .Recoverybox>h5{
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) and (min-width: 300px){
+	.resultboxinnerparent{
+        flex-wrap: wrap;
+    }
+    .Confirmbox , .Recoverybox , .Deathbox{
+        width: 47%;
+        margin: 10px 8px;
+    }
+}
+
+@media screen and (max-width: 767px) and (min-width: 300px){
+   
+}
+
+@media screen and (max-width: 640px) and (min-width: 300px){
+    .Confirmbox , .Recoverybox , .Deathbox{
+        width:46%;
+    }
+}
+
+
+@media screen and (max-width: 600px) and (min-width: 300px){
+	
+
+}
+
+@media screen and (max-width: 580px) and (min-width: 300px){
+   
+    .Confirmbox, .Recoverybox, .Deathbox{
+        width:100%;
+    }
+    .CovidGlobal{
+        padding:8px 0px;
+    }
+    .CovidGlTitle::before{
+        border-bottom: 38px solid #000;
+    }
+    .CovidGlTitle>h2 {
+        font-size: 22px;
+    }   
+    .CovidGlTitle {
+        left: 55px;
+    } 
+    .chart{
+        margin: 20px 0px;
+    }
+    .footerz{
+        margin:20px 0px 0px 0px;
+    }
+
+}
+
+@media screen and (max-width: 520px) and (min-width: 300px){
+	
+}
+
+@media screen and (max-width: 480px) and (min-width: 300px){
+    .covid19logo>img{
+        width:74%;
+    }	
+
+
+}
+
+@media screen and (max-width: 440px) and (min-width: 300px){
+	
+}
+
+@media screen and (max-width: 420px) and (min-width: 300px){
+    .CovidGlobal {
+        padding: 6px 0px;
+    }
+    .CovidGlTitle>h2 {
+        font-size: 20px;
+    }
+    .CovidGlTitle::before{
+        top:-1px;
+        border-bottom: 34px solid #000;
+    }
+    .CovidGlTitle{
+        margin-top: -9px;
+        left:37px;
+        padding: 5px 9px;
+    }
+
+}
+
+@media screen and (max-width: 360px) and (min-width: 300px){
+	
+}
+
+@media screen and (max-width: 320px) and (min-width: 300px){
+	
+}
